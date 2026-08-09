@@ -101,7 +101,7 @@ class FooterSection extends StatelessWidget {
 
           Wrap(
             alignment: WrapAlignment.spaceBetween,
-            crossAlignment: WrapCrossAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 20,
             runSpacing: 12,
             children: [
