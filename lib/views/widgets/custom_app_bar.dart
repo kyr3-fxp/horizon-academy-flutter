@@ -13,14 +13,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(70.0);
+  Size get preferredSize => const Size.fromHeight(75.0);
 
   @override
   Widget build(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width >= 900;
+    final topPadding = MediaQuery.of(context).padding.top;
 
     return Container(
-      height: preferredSize.height,
+      height: preferredSize.height + topPadding,
+      padding: EdgeInsets.only(top: topPadding),
       decoration: BoxDecoration(
         color: AppColors.bgSurface.withValues(alpha: 0.95),
         border: const Border(
@@ -34,121 +36,118 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              // Logo & Marca
-              Flexible(
-                child: InkWell(
-                  onTap: () => onNavigateToSection('hero'),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Icon(
-                          Icons.school_rounded,
-                          color: AppColors.accentAmber,
-                          size: 22,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'HORIZON',
-                              style: AppTextStyle.heading(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
-                                height: 1.0,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              'INTERNATIONAL ACADEMY',
-                              style: AppTextStyle.body(
-                                fontSize: 9,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.accentAmber,
-                                height: 1.0,
-                              ).copyWith(letterSpacing: 1.0),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Navegación Desktop / Menú Móvil
-              if (isDesktop)
-                Row(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Logo & Marca
+            Flexible(
+              child: InkWell(
+                onTap: () => onNavigateToSection('hero'),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    _NavButton(
-                      label: 'Programas',
-                      onPressed: () => onNavigateToSection('programs'),
-                    ),
-                    _NavButton(
-                      label: 'Estadísticas',
-                      onPressed: () => onNavigateToSection('stats'),
-                    ),
-                    _NavButton(
-                      label: 'Colegiaturas',
-                      onPressed: () => onNavigateToSection('calculator'),
-                    ),
-                    _NavButton(
-                      label: 'Eventos',
-                      onPressed: () => onNavigateToSection('events'),
-                    ),
-                    _NavButton(
-                      label: 'Testimonios',
-                      onPressed: () => onNavigateToSection('testimonials'),
-                    ),
-                    _NavButton(
-                      label: 'FAQs',
-                      onPressed: () => onNavigateToSection('faqs'),
-                    ),
-                    const SizedBox(width: 16),
-                    ElevatedButton(
-                      onPressed: onAdmissionPressed,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        elevation: 2,
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text('Admisiones', style: AppTextStyle.button(fontSize: 14)),
+                      child: const Icon(
+                        Icons.school_rounded,
+                        color: AppColors.accentAmber,
+                        size: 22,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'HORIZON',
+                            style: AppTextStyle.heading(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primary,
+                              height: 1.1,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            'INTERNATIONAL ACADEMY',
+                            style: AppTextStyle.body(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.accentAmber,
+                              height: 1.1,
+                            ).copyWith(letterSpacing: 0.8),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
-                )
-              else
-                IconButton(
-                  icon: const Icon(Icons.menu_rounded, color: AppColors.primary, size: 28),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
                 ),
-            ],
-          ),
+              ),
+            ),
+
+            // Navegación Desktop / Menú Móvil
+            if (isDesktop)
+              Row(
+                children: [
+                  _NavButton(
+                    label: 'Programas',
+                    onPressed: () => onNavigateToSection('programs'),
+                  ),
+                  _NavButton(
+                    label: 'Estadísticas',
+                    onPressed: () => onNavigateToSection('stats'),
+                  ),
+                  _NavButton(
+                    label: 'Colegiaturas',
+                    onPressed: () => onNavigateToSection('calculator'),
+                  ),
+                  _NavButton(
+                    label: 'Eventos',
+                    onPressed: () => onNavigateToSection('events'),
+                  ),
+                  _NavButton(
+                    label: 'Testimonios',
+                    onPressed: () => onNavigateToSection('testimonials'),
+                  ),
+                  _NavButton(
+                    label: 'FAQs',
+                    onPressed: () => onNavigateToSection('faqs'),
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton(
+                    onPressed: onAdmissionPressed,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 2,
+                    ),
+                    child: Text('Admisiones', style: AppTextStyle.button(fontSize: 14)),
+                  ),
+                ],
+              )
+            else
+              IconButton(
+                icon: const Icon(Icons.menu_rounded, color: AppColors.primary, size: 28),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+          ],
         ),
       ),
     );
