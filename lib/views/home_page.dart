@@ -12,7 +12,6 @@ import 'widgets/events_section.dart';
 import 'widgets/testimonials_section.dart';
 import 'widgets/faqs_section.dart';
 import 'widgets/admissions_section.dart';
-import 'widgets/footer_section.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -160,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                 KeyedSubtree(key: _testimonialsKey, child: const TestimonialsSection()),
                 KeyedSubtree(key: _faqsKey, child: const FaqsSection()),
                 KeyedSubtree(key: _admissionsKey, child: const AdmissionsSection()),
-                const FooterSection(),
+                const SizedBox(height: 40),
               ],
             ),
           ),
