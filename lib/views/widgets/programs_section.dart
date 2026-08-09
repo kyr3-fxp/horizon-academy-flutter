@@ -63,7 +63,6 @@ class ProgramsSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Metadatos (Edad, Horario, Ratio)
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
@@ -151,7 +150,6 @@ class ProgramsSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Título de Sección
           Text(
             'Programas Académicos',
             style: AppTextStyle.heading(
@@ -167,10 +165,13 @@ class ProgramsSection extends StatelessWidget {
           ),
           const SizedBox(height: 40),
 
-          // Grid Responsivo de Tarjetas
           LayoutBuilder(
             builder: (context, constraints) {
               final crossAxisCount = isDesktop ? 4 : (constraints.maxWidth > 600 ? 2 : 1);
+              final aspectRatio = isDesktop
+                  ? 0.70
+                  : (constraints.maxWidth > 600 ? 0.75 : 0.95);
+
               return GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -179,12 +180,12 @@ class ProgramsSection extends StatelessWidget {
                   crossAxisCount: crossAxisCount,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
-                  childAspectRatio: isDesktop ? 0.72 : 0.85,
+                  childAspectRatio: aspectRatio,
                 ),
                 itemBuilder: (context, index) {
                   final p = ProgramModel.samplePrograms[index];
                   return Container(
-                    padding: const EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: AppColors.bgSurface,
                       borderRadius: BorderRadius.circular(20),
@@ -201,40 +202,41 @@ class ProgramsSection extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: AppColors.accentGreenSoft,
                             borderRadius: BorderRadius.circular(14),
                           ),
-                          child: Icon(_getIcon(p.iconName), color: AppColors.primary, size: 30),
-                        ),
-                        const SizedBox(height: 16),
-
-                        Text(
-                          p.title,
-                          style: AppTextStyle.heading(fontSize: 20, color: AppColors.primary),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          p.subtitle,
-                          style: AppTextStyle.body(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.accentAmber,
-                          ),
+                          child: Icon(_getIcon(p.iconName), color: AppColors.primary, size: 28),
                         ),
                         const SizedBox(height: 12),
 
                         Text(
-                          p.description,
-                          style: AppTextStyle.body(fontSize: 13, color: AppColors.textMuted),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                          p.title,
+                          style: AppTextStyle.heading(fontSize: 18, color: AppColors.primary),
                         ),
-                        const Spacer(),
+                        const SizedBox(height: 2),
+                        Text(
+                          p.subtitle,
+                          style: AppTextStyle.body(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.accentAmber,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+
+                        Expanded(
+                          child: Text(
+                            p.description,
+                            style: AppTextStyle.body(fontSize: 12, color: AppColors.textMuted),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 4,
+                          ),
+                        ),
 
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           decoration: BoxDecoration(
                             color: AppColors.bgMain,
                             borderRadius: BorderRadius.circular(8),
@@ -246,12 +248,12 @@ class ProgramsSection extends StatelessWidget {
                               const SizedBox(width: 6),
                               Text(
                                 p.ageRange,
-                                style: AppTextStyle.body(fontSize: 12, fontWeight: FontWeight.w600),
+                                style: AppTextStyle.body(fontSize: 11, fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
                         ),
-                        const SizedBox(height: 14),
+                        const SizedBox(height: 10),
 
                         SizedBox(
                           width: double.infinity,
@@ -260,12 +262,12 @@ class ProgramsSection extends StatelessWidget {
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: AppColors.primary, width: 1.5),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
                             ),
                             child: Text(
                               'Ver Plan de Estudios',
                               style: AppTextStyle.body(
-                                fontSize: 13,
+                                fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primary,
                               ),

@@ -92,11 +92,12 @@ class EventsSection extends StatelessWidget {
                   ],
                 ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Caja de Fecha
                     Container(
-                      width: 70,
-                      height: 80,
+                      width: 65,
+                      height: 75,
                       decoration: BoxDecoration(
                         color: AppColors.primary,
                         borderRadius: BorderRadius.circular(14),
@@ -107,7 +108,7 @@ class EventsSection extends StatelessWidget {
                           Text(
                             e.dateDay,
                             style: AppTextStyle.heading(
-                              fontSize: 24,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
                               color: AppColors.accentAmber,
                             ),
@@ -115,7 +116,7 @@ class EventsSection extends StatelessWidget {
                           Text(
                             e.dateMonth,
                             style: AppTextStyle.body(
-                              fontSize: 12,
+                              fontSize: 11,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -123,17 +124,20 @@ class EventsSection extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(width: 20),
+                    const SizedBox(width: 16),
 
                     // Detalles del Evento
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            spacing: 8,
+                            runSpacing: 4,
                             children: [
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                 decoration: BoxDecoration(
                                   color: AppColors.accentGreenSoft,
                                   borderRadius: BorderRadius.circular(6),
@@ -147,15 +151,19 @@ class EventsSection extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 10),
-                              Icon(Icons.location_on_outlined, size: 14, color: AppColors.textDim),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: Text(
-                                  e.location,
-                                  style: AppTextStyle.body(fontSize: 11, color: AppColors.textDim),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.location_on_outlined, size: 14, color: AppColors.textDim),
+                                  const SizedBox(width: 4),
+                                  Flexible(
+                                    child: Text(
+                                      e.location,
+                                      style: AppTextStyle.body(fontSize: 11, color: AppColors.textDim),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -163,7 +171,7 @@ class EventsSection extends StatelessWidget {
 
                           Text(
                             e.title,
-                            style: AppTextStyle.heading(fontSize: 18, color: AppColors.primary),
+                            style: AppTextStyle.heading(fontSize: 17, color: AppColors.primary),
                           ),
                           const SizedBox(height: 4),
 

@@ -46,38 +46,42 @@ class _StatsSectionState extends State<StatsSection> {
         child: LayoutBuilder(
           builder: (context, constraints) {
             final isMobile = constraints.maxWidth < 650;
+            final cardWidth = isMobile
+                ? ((constraints.maxWidth - 20) / 2).clamp(120.0, 300.0)
+                : 180.0;
+
             return Wrap(
               alignment: WrapAlignment.spaceAround,
-              spacing: 30,
-              runSpacing: 30,
+              spacing: 20,
+              runSpacing: 24,
               children: [
                 _StatCard(
                   targetValue: 1250,
                   suffix: '+',
                   label: 'Estudiantes Activos',
                   isVisible: _isVisible,
-                  width: isMobile ? (constraints.maxWidth - 20) / 2 : 180,
+                  width: cardWidth,
                 ),
                 _StatCard(
                   targetValue: 99,
                   suffix: '%',
                   label: 'Ingreso Universitario',
                   isVisible: _isVisible,
-                  width: isMobile ? (constraints.maxWidth - 20) / 2 : 180,
+                  width: cardWidth,
                 ),
                 _StatCard(
                   targetValue: 28,
                   suffix: '',
                   label: 'Clubes & Talleres STEAM',
                   isVisible: _isVisible,
-                  width: isMobile ? (constraints.maxWidth - 20) / 2 : 180,
+                  width: cardWidth,
                 ),
                 _StatCard(
                   targetValue: 25,
                   suffix: ' Años',
                   label: 'Excelencia Educativa',
                   isVisible: _isVisible,
-                  width: isMobile ? (constraints.maxWidth - 20) / 2 : 180,
+                  width: cardWidth,
                 ),
               ],
             );
@@ -117,7 +121,7 @@ class _StatCard extends StatelessWidget {
               return Text(
                 '${value.toInt()}$suffix',
                 style: AppTextStyle.heading(
-                  fontSize: 38,
+                  fontSize: 34,
                   fontWeight: FontWeight.bold,
                   color: AppColors.accentAmber,
                 ),
@@ -128,7 +132,7 @@ class _StatCard extends StatelessWidget {
           Text(
             label,
             style: AppTextStyle.body(
-              fontSize: 13,
+              fontSize: 12,
               fontWeight: FontWeight.w600,
               color: Colors.white.withValues(alpha: 0.9),
             ),

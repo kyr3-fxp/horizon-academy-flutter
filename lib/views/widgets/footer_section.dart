@@ -24,7 +24,6 @@ class FooterSection extends StatelessWidget {
                 runSpacing: 30,
                 alignment: WrapAlignment.spaceBetween,
                 children: [
-                  // Columna 1: Marca & Eslogan
                   SizedBox(
                     width: isDesktop ? 300 : constraints.maxWidth,
                     child: Column(
@@ -64,7 +63,6 @@ class FooterSection extends StatelessWidget {
                     ),
                   ),
 
-                  // Columna 2: Enlaces Rápidos
                   SizedBox(
                     width: isDesktop ? 180 : 150,
                     child: Column(
@@ -80,7 +78,6 @@ class FooterSection extends StatelessWidget {
                     ),
                   ),
 
-                  // Columna 3: Contacto
                   SizedBox(
                     width: isDesktop ? 260 : constraints.maxWidth,
                     child: Column(
@@ -102,14 +99,18 @@ class FooterSection extends StatelessWidget {
           const Divider(color: Colors.white24),
           const SizedBox(height: 16),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAlignment: WrapCrossAlignment.center,
+            spacing: 20,
+            runSpacing: 12,
             children: [
               Text(
                 '© 2026 Horizon International Academy. Todos los derechos reservados.',
                 style: AppTextStyle.body(fontSize: 12, color: Colors.white54),
               ),
               const Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.facebook, color: Colors.white70, size: 20),
                   SizedBox(width: 14),
