@@ -39,7 +39,7 @@ class CampusSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 60 : 20,
-        vertical: 60,
+        vertical: 40,
       ),
       child: Column(
         children: [
@@ -56,73 +56,111 @@ class CampusSection extends StatelessWidget {
             style: AppTextStyle.body(fontSize: 16, color: AppColors.textMuted),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 32),
 
           LayoutBuilder(
             builder: (context, constraints) {
-              final crossAxisCount = isDesktop ? 4 : (constraints.maxWidth > 600 ? 2 : 1);
+              final isSingleColumn = constraints.maxWidth < 650;
+
+              if (isSingleColumn) {
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: facilities.length,
+                  separatorBuilder: (context, index) => const SizedBox(height: 16),
+                  itemBuilder: (context, index) {
+                    final f = facilities[index];
+                    return _FacilityCard(facility: f);
+                  },
+                );
+              }
+
+              final crossAxisCount = isDesktop ? 4 : 2;
               return GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: facilities.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: isDesktop ? 0.82 : 0.95,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: isDesktop ? 0.85 : 0.90,
                 ),
                 itemBuilder: (context, index) {
                   final f = facilities[index];
-                  return Container(
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: AppColors.bgSurface,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: AppColors.borderPaper),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.04),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: AppColors.accentGreenSoft,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Icon(f['icon'] as IconData, color: AppColors.primary, size: 36),
-                        ),
-                        const SizedBox(height: 18),
-                        Text(
-                          f['category'] as String,
-                          style: AppTextStyle.body(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.accentAmber,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          f['title'] as String,
-                          style: AppTextStyle.heading(fontSize: 18, color: AppColors.primary),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          f['desc'] as String,
-                          style: AppTextStyle.body(fontSize: 13, color: AppColors.textMuted),
-                        ),
-                      ],
-                    ),
-                  );
+                  return _FacilityCard(facility: f);
                 },
               );
             },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FacilityCard extends StatelessWidget {
+  final Map<String, dynamic> facility;
+
+  const _FacilityCard({required this.facility});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.bgSurface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.borderPaper),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppColors.accentGreenSoft,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(facility['icon'] as IconData, color: AppColors.primary, size: 28),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      facility['category'] as String,
+                      style: AppTextStyle.body(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.accentAmber,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      facility['title'] as String,
+                      style: AppTextStyle.heading(fontSize: 16, color: AppColors.primary, height: 1.2),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            facility['desc'] as String,
+            style: AppTextStyle.body(fontSize: 12, color: AppColors.textMuted, height: 1.4),
           ),
         ],
       ),
