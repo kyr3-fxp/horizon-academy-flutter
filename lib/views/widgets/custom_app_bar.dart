@@ -96,7 +96,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
 
-            // Navegación Desktop / Menú Móvil
+            // Navegación Desktop / Menú Hamburguesa Móvil
             if (isDesktop)
               Row(
                 children: [
@@ -142,9 +142,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               )
             else
               IconButton(
-                icon: const Icon(Icons.menu_rounded, color: AppColors.primary, size: 28),
+                icon: const Icon(Icons.menu_rounded, color: AppColors.primary, size: 30),
+                tooltip: 'Abrir Menú de Navegación',
                 onPressed: () {
-                  Scaffold.of(context).openDrawer();
+                  Scaffold.of(context).openEndDrawer();
                 },
               ),
           ],

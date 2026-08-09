@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
         onAdmissionPressed: () => _scrollToSection('admissions'),
         onNavigateToSection: _scrollToSection,
       ),
-      drawer: Drawer(
+      endDrawer: Drawer(
         backgroundColor: AppColors.bgSurfaceElevated,
         child: ListView(
           padding: EdgeInsets.zero,
