@@ -72,6 +72,7 @@ class CalculatorSection extends StatelessWidget {
                           const SizedBox(height: 12),
                           DropdownButtonFormField<String>(
                             initialValue: controller.selectedLevel,
+                            isExpanded: true,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColors.bgMain,
@@ -84,19 +85,31 @@ class CalculatorSection extends StatelessWidget {
                             items: const [
                               DropdownMenuItem(
                                 value: 'preschool',
-                                child: Text('Preschool & Early Learning (\$7,200 MXN / mes)'),
+                                child: Text(
+                                  'Preschool & Early Learning (\$7,200 MXN / mes)',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               DropdownMenuItem(
                                 value: 'primary',
-                                child: Text('Elementary School / Primaria (\$9,800 MXN / mes)'),
+                                child: Text(
+                                  'Elementary School / Primaria (\$9,800 MXN / mes)',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               DropdownMenuItem(
                                 value: 'secondary',
-                                child: Text('Middle School / Secundaria (\$11,500 MXN / mes)'),
+                                child: Text(
+                                  'Middle School / Secundaria (\$11,500 MXN / mes)',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               DropdownMenuItem(
                                 value: 'highschool',
-                                child: Text('IB High School / Bachillerato (\$14,200 MXN / mes)'),
+                                child: Text(
+                                  'IB High School / Bachillerato (\$14,200 MXN / mes)',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                             onChanged: (val) {

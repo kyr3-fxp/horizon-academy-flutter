@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(80.0);
+  Size get preferredSize => const Size.fromHeight(70.0);
 
   @override
   Widget build(BuildContext context) {
@@ -35,56 +35,68 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       child: SafeArea(
+        bottom: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // Logo & Marca
-              InkWell(
-                onTap: () => onNavigateToSection('hero'),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: AppColors.primary,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Icon(
-                        Icons.school_rounded,
-                        color: AppColors.accentAmber,
-                        size: 26,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'HORIZON',
-                          style: AppTextStyle.heading(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primary,
-                          ),
+              Flexible(
+                child: InkWell(
+                  onTap: () => onNavigateToSection('hero'),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        Text(
-                          'INTERNATIONAL ACADEMY',
-                          style: AppTextStyle.body(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.accentAmber,
-                          ).copyWith(letterSpacing: 1.5),
+                        child: const Icon(
+                          Icons.school_rounded,
+                          color: AppColors.accentAmber,
+                          size: 22,
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      const SizedBox(width: 10),
+                      Flexible(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'HORIZON',
+                              style: AppTextStyle.heading(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary,
+                                height: 1.0,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'INTERNATIONAL ACADEMY',
+                              style: AppTextStyle.body(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.accentAmber,
+                                height: 1.0,
+                              ).copyWith(letterSpacing: 1.0),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
-              // Navegación Desktop
+              // Navegación Desktop / Menú Móvil
               if (isDesktop)
                 Row(
                   children: [
@@ -129,15 +141,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ],
                 )
               else
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.menu_rounded, color: AppColors.primary, size: 28),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                    ),
-                  ],
+                IconButton(
+                  icon: const Icon(Icons.menu_rounded, color: AppColors.primary, size: 28),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
                 ),
             ],
           ),
